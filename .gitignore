@@ -1,0 +1,44 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Swift Package Manager
+.build
+.build/
+.swiftpm/
+Packages/
+Package.resolved
+
+# Xcode (in case the user opens it in Xcode later)
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+*.moved-aside
+*.xcuserstate
+
+# Compiled Apps
+*.app
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains (AppCode, CLion, etc.)
+.idea/
+
+# Logs & Temp
+*.log
+tmp/
+.temp/
+
+# Backup/Patch
+*.bak
+*.swp
+*~
+.diff
+.patch
