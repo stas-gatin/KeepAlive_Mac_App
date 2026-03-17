@@ -1,0 +1,31 @@
+{
+  "": {
+    "dependencies": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAlive.d",
+    "object": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAlive.o",
+    "swift-dependencies": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/master.swiftdeps"
+  },
+  "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/KeepAliveApp.swift": {
+    "object": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveApp.swift.o",
+    "swiftmodule": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveApp~partial.swiftmodule",
+    "swift-dependencies": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveApp.swiftdeps",
+    "diagnostics": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveApp.dia"
+  },
+  "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/KeepAliveManager.swift": {
+    "object": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveManager.swift.o",
+    "swiftmodule": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveManager.swiftdeps",
+    "diagnostics": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveManager.dia"
+  },
+  "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/MenuView.swift": {
+    "object": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/MenuView.swift.o",
+    "swiftmodule": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/MenuView~partial.swiftmodule",
+    "swift-dependencies": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/MenuView.swiftdeps",
+    "diagnostics": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/MenuView.dia"
+  },
+  "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/ShellExecutor.swift": {
+    "object": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/ShellExecutor.swift.o",
+    "swiftmodule": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/ShellExecutor~partial.swiftmodule",
+    "swift-dependencies": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/ShellExecutor.swiftdeps",
+    "diagnostics": "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/ShellExecutor.dia"
+  }
+}

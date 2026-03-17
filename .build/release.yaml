@@ -1,0 +1,66 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "KeepAlive-arm64-apple-macosx15.0-release.exe": ["<KeepAlive-arm64-apple-macosx15.0-release.exe>"]
+  "KeepAlive-arm64-apple-macosx15.0-release.module": ["<KeepAlive-arm64-apple-macosx15.0-release.module>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "main": ["<KeepAlive-arm64-apple-macosx15.0-release.exe>","<KeepAlive-arm64-apple-macosx15.0-release.module>"]
+  "test": ["<KeepAlive-arm64-apple-macosx15.0-release.exe>","<KeepAlive-arm64-apple-macosx15.0-release.module>"]
+default: "main"
+nodes:
+  "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+commands:
+  "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/KeepAliveApp.swift","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/KeepAliveManager.swift","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/MenuView.swift","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/ShellExecutor.swift"]
+    outputs: ["/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/sources"]
+    description: "Write auxiliary file /Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/sources"
+
+  "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveApp.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveManager.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/MenuView.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/ShellExecutor.swift.o"]
+    outputs: ["/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.product/Objects.LinkFileList"
+
+  "/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"]
+    outputs: ["/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+
+  "<KeepAlive-arm64-apple-macosx15.0-release.exe>":
+    tool: phony
+    inputs: ["/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive"]
+    outputs: ["<KeepAlive-arm64-apple-macosx15.0-release.exe>"]
+
+  "<KeepAlive-arm64-apple-macosx15.0-release.module>":
+    tool: phony
+    inputs: ["/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveApp.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveManager.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/MenuView.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/ShellExecutor.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/Modules/KeepAlive.swiftmodule"]
+    outputs: ["<KeepAlive-arm64-apple-macosx15.0-release.module>"]
+
+  "C.KeepAlive-arm64-apple-macosx15.0-release.exe":
+    tool: shell
+    inputs: ["/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveApp.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveManager.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/MenuView.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/ShellExecutor.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.product/Objects.LinkFileList"]
+    outputs: ["/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive"]
+    description: "Linking ./.build/arm64-apple-macosx/release/KeepAlive"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-L","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release","-o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive","-module-name","KeepAlive","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-dead_strip","-Xlinker","-alias","-Xlinker","_KeepAlive_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-6.2/macosx","-target","arm64-apple-macosx14.0","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g"]
+
+  "C.KeepAlive-arm64-apple-macosx15.0-release.module":
+    tool: shell
+    inputs: ["/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/KeepAliveApp.swift","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/KeepAliveManager.swift","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/MenuView.swift","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/ShellExecutor.swift","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/sources"]
+    outputs: ["/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveApp.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/KeepAliveManager.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/MenuView.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/ShellExecutor.swift.o","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/Modules/KeepAlive.swiftmodule"]
+    description: "Compiling Swift Module 'KeepAlive' (4 sources)"
+    args: ["/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","KeepAlive","-emit-dependencies","-emit-module","-emit-module-path","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/Modules/KeepAlive.swiftmodule","-output-file-map","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/output-file-map.json","-whole-module-optimization","-num-threads","10","-c","@/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/KeepAlive.build/sources","-I","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/Modules","-target","arm64-apple-macosx14.0","-whole-module-optimization","-num-threads","10","-serialize-diagnostics","-O","-j10","-DSWIFT_PACKAGE","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/.build/arm64-apple-macosx/release/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","KeepAlive_main","-color-diagnostics","-swift-version","6","-plugin-path","/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing","-sdk","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-F","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-I","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.1.sdk","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-F","-Xcc","/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","keepalive_mac_app"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/Package.swift","/Users/stanislavgatin/CurrentSky_Projects/KeepAlive_Mac_App/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+
