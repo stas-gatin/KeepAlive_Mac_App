@@ -23,7 +23,7 @@ KeepAlive is a premium, high-performance macOS utility designed to prevent your 
 
 If you don't want to build from source, you can use the pre-compiled version:
 
-1.  **Download**: Go to the [Latest Release](https://github.com/stas-gatin/KeepAlive_Mac_App/releases) and download `KeepAlive_v1.0.zip`.
+1.  **Download**: Go to the [Latest Release](https://github.com/stas-gatin/KeepAlive_Mac_App/releases) and download `KeepAlive_v1.1.0.zip`.
 2.  **Unpack**: Unzip the file and drag **KeepAlive.app** to your `/Applications` folder.
 3.  **Launch**:
     -   Double-click to open. 
