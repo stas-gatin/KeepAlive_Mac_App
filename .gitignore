@@ -42,3 +42,6 @@ tmp/
 *~
 .diff
 .patch
+
+# Release Archives
+releases/

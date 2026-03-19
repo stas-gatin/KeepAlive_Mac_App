@@ -5,7 +5,7 @@
     <key>CFBundleExecutable</key>
     <string>KeepAlive</string>
     <key>CFBundleIdentifier</key>
-    <string>com.stanislav.keepalive</string>
+    <string>es.currentsky.KeepAlive</string>
     <key>CFBundleName</key>
     <string>KeepAlive</string>
     <key>CFBundlePackageType</key>

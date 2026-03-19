@@ -2,6 +2,12 @@
 
 KeepAlive is a premium, high-performance macOS utility designed to prevent your system from falling asleep. Whether you need to run long-running Python scripts, keep a remote session active, or prevent your screen from dimming during a presentation, KeepAlive provides a sleek and reliable solution.
 
+## 📸 UI Preview
+
+| **Active Mode (FULL)** | **Standby Mode (OFF)** |
+|:---:|:---:|
+| ![KeepAlive Active](img/full.png) | ![KeepAlive Off](img/off.png) |
+
 ## 🚀 Key Features
 
 - **Simple Mode**: Prevents idle sleep using `caffeinate -i`. Safe for everyday use and requires no admin privileges.
