@@ -19,32 +19,49 @@ KeepAlive is a premium, high-performance macOS utility designed to prevent your 
   - **Glassmorphism**: Native macOS Sequoia-style translucent materials.
   - **True Dark Mode**: Deep midnight black aesthetic for high-end workspace integration.
 
-## 🛠 Tech Stack
+## ⚡️ Quick Start (Recommended)
+
+If you don't want to build from source, you can use the pre-compiled version:
+
+1.  **Download**: Go to the [Latest Release](https://github.com/stas-gatin/KeepAlive_Mac_App/releases) and download `KeepAlive_v1.0.zip`.
+2.  **Unpack**: Unzip the file and drag **KeepAlive.app** to your `/Applications` folder.
+3.  **Launch**:
+    -   Double-click to open. 
+    -   *Note*: Since the app is not signed with an Apple Developer ID, you may need to **Right-click** on the app and select **Open**, then confirm by clicking **Open** again in the security dialog.
+4.  **Enjoy**: Look for the bolt icon in your Menu Bar!
+
+---
+
+## 🧪 Tech Stack
 
 - **Language**: Swift 6.0
 - **Framework**: SwiftUI
 - **OS Requirement**: macOS 14.0 (Sonoma) or newer
 - **System Integration**: Secure shell execution via `Process` and AppleScript for authorized commands.
 
-## 📦 Installation & Usage
+---
+
+## 🏗 Development & Build
 
 ### Prerequisites
 - macOS 14.0+
 - Swift installed (comes with Xcode Command Line Tools)
 
-### Build the App
+### Build from Source
 Open your terminal in the project directory and run:
 ```bash
 swift build
 ```
 
-### Run the App
+### Run (from Terminal)
 To start the app, run the compiled binary:
 ```bash
 ./.build/debug/KeepAlive
 ```
 
-### How to Use
+---
+
+## 🚦 How to Use
 1. Once launched, look for the **bolt icon** in your macOS Menu Bar.
 2. Click the icon to open the KeepAlive control panel.
 3. Select **SIMPLE** for basic wakefulness or **FULL** for lid-sleep prevention.

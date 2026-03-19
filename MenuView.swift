@@ -131,9 +131,21 @@ struct MenuView: View {
                     .font(.system(size: 10, weight: .black)) // More prominent
                     .foregroundStyle(.white.opacity(0.6))
                 
-                TimerActionChip(label: "1H") { manager.setTimer(duration: 3600) }
-                TimerActionChip(label: "2H") { manager.setTimer(duration: 7200) }
-                TimerActionChip(label: "OFF", isDestructive: true) { manager.setTimer(duration: 0) }
+                TimerActionChip(
+                    label: "1H", 
+                    isSelected: manager.selectedDuration == 3600
+                ) { manager.selectDuration(3600) }
+                
+                TimerActionChip(
+                    label: "2H", 
+                    isSelected: manager.selectedDuration == 7200
+                ) { manager.selectDuration(7200) }
+                
+                TimerActionChip(
+                    label: "OFF", 
+                    isDestructive: true,
+                    isSelected: manager.selectedDuration == nil
+                ) { manager.selectDuration(nil) }
                 
                 Spacer()
                 
@@ -269,20 +281,24 @@ struct ModeToggleButton: View {
 struct TimerActionChip: View {
     let label: String
     var isDestructive: Bool = false
+    var isSelected: Bool = false
     let action: () -> Void
     
     var body: some View {
         Button(action: action) {
             Text(label)
-                .font(.system(size: 10, weight: .bold))
+                .font(.system(size: 10, weight: isSelected ? .black : .bold))
                 .padding(.vertical, 4)
                 .padding(.horizontal, 10)
-                .background(Color.white.opacity(0.1)) // Slightly darker for contrast
+                .background(isSelected ? Color.white.opacity(0.15) : Color.white.opacity(0.05))
                 .clipShape(Capsule())
-                .overlay(Capsule().stroke(.white.opacity(0.2), lineWidth: 0.5))
+                .overlay(
+                    Capsule()
+                        .stroke(isSelected ? Color.white.opacity(0.4) : Color.white.opacity(0.1), lineWidth: isSelected ? 1 : 0.5)
+                )
         }
         .buttonStyle(.plain)
-        .foregroundStyle(isDestructive ? Color.red.opacity(0.8) : Color.white)
+        .foregroundStyle(isDestructive ? Color.red.opacity(0.8) : (isSelected ? Color.white : Color.white.opacity(0.7)))
     }
 }
 

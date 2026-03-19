@@ -12,12 +12,18 @@ enum KeepAliveMode: String {
 class KeepAliveManager: ObservableObject {
     @Published var currentMode: KeepAliveMode = .off
     @Published var timerRemaining: TimeInterval? = nil
+    @Published var selectedDuration: TimeInterval? = nil // Store the requested duration
     
     private var caffeinateProcess: Process?
     private var timer: Timer?
     
-    /// Enables Simple KeepAlive using `caffeinate -i`.
+    /// Toggles Simple KeepAlive using `caffeinate -i`.
     func enableSimpleMode() {
+        if currentMode == .simple {
+            disableKeepAlive()
+            return
+        }
+        
         stopAll()
         
         let process = Process()
@@ -28,14 +34,25 @@ class KeepAliveManager: ObservableObject {
             try process.run()
             self.caffeinateProcess = process
             self.currentMode = .simple
+            
+            // Start the timer IF a duration was pre-selected
+            if let duration = selectedDuration, duration > 0 {
+                startCountdown(duration: duration)
+            }
+            
             sendNotification(title: "Simple KeepAlive Enabled", body: "Mac will stay awake while lid is open.")
         } catch {
             print("Failed to start caffeinate: \(error)")
         }
     }
     
-    /// Enables Full KeepAlive using `sudo pmset -a disablesleep 1` and `caffeinate -i`.
+    /// Toggles Full KeepAlive using `sudo pmset -a disablesleep 1` and `caffeinate -i`.
     func enableFullMode() {
+        if currentMode == .full {
+            disableKeepAlive()
+            return
+        }
+        
         stopAll()
         
         // Disable sleep via pmset (requires sudo)
@@ -51,6 +68,12 @@ class KeepAliveManager: ObservableObject {
                 try process.run()
                 self.caffeinateProcess = process
                 self.currentMode = .full
+                
+                // Start the timer IF a duration was pre-selected
+                if let duration = selectedDuration, duration > 0 {
+                    startCountdown(duration: duration)
+                }
+                
                 sendNotification(title: "Full KeepAlive Enabled", body: "Mac will stay awake even with lid closed. Beware of overheating!")
             } catch {
                 print("Failed to start caffeinate for full mode: \(error)")
@@ -67,9 +90,23 @@ class KeepAliveManager: ObservableObject {
         sendNotification(title: "KeepAlive Disabled", body: "Standard energy-saving settings restored.")
     }
     
-    /// Sets a timer to disable KeepAlive after a duration.
-    func setTimer(duration: TimeInterval) {
-        timer?.invalidate()
+    /// Sets a duration for the *next* or *current* activation.
+    func selectDuration(_ duration: TimeInterval?) {
+        let cleanDuration = duration == 0 ? nil : duration
+        self.selectedDuration = cleanDuration
+        
+        // If we are ALREADY active, start/restart the timer immediately
+        if currentMode != .off {
+            if let duration = cleanDuration {
+                startCountdown(duration: duration)
+            } else {
+                stopCountdown()
+            }
+        }
+    }
+    
+    private func startCountdown(duration: TimeInterval) {
+        stopCountdown()
         timerRemaining = duration
         
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
@@ -78,8 +115,6 @@ class KeepAliveManager: ObservableObject {
                 
                 if remaining <= 0 {
                     self.disableKeepAlive()
-                    self.timerRemaining = nil
-                    self.timer?.invalidate()
                 } else {
                     self.timerRemaining = remaining - 1
                 }
@@ -87,20 +122,25 @@ class KeepAliveManager: ObservableObject {
         }
     }
     
-    private func stopAll() {
-        // Stop caffeinate process
-        if caffeinateProcess?.isRunning == true {
-            caffeinateProcess?.terminate()
-        }
-        caffeinateProcess = nil
-        
-        // Reset pmset sleep setting (requires sudo)
-        _ = ShellExecutor.executeSudo("pmset -a disablesleep 0")
-        
-        // Stop timer
+    private func stopCountdown() {
         timer?.invalidate()
         timer = nil
         timerRemaining = nil
+    }
+    
+    private func stopAll() {
+        // Stop caffeinate process
+        if let process = caffeinateProcess, process.isRunning {
+            process.terminate()
+        }
+        caffeinateProcess = nil
+        
+        // Reset pmset sleep setting ONLY if we were in Full mode
+        if currentMode == .full {
+            _ = ShellExecutor.executeSudo("pmset -a disablesleep 0")
+        }
+        
+        stopCountdown()
     }
     
     private func sendNotification(title: String, body: String) {
