@@ -4,14 +4,19 @@ struct MenuView: View {
     @ObservedObject var manager: KeepAliveManager
     @State private var isGlowing = false
     @State private var orbRotation = 0.0
+    @State private var showCustomPicker = false
+    @State private var customHours = 0
+    @State private var customMinutes = 0
     
     var body: some View {
         VStack(spacing: 0) {
-            // MARK: - Header
+            // ... (rest of header remains the same)
+            
+            // Header
             HStack {
                 Text("KeepAlive")
                     .font(.system(size: 16, weight: .bold, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.9)) // Brighter header
+                    .foregroundStyle(.white.opacity(0.9))
                 Spacer()
                 statusBadge
             }
@@ -20,11 +25,12 @@ struct MenuView: View {
             
             Spacer(minLength: 30)
             
+            // ... (Orb area remains same)
             // MARK: - Central Status Orb & Timer
             ZStack {
                 // Background Glow
                 Circle()
-                    .fill(currentThemeColor.opacity(0.2)) // Slightly more glow
+                    .fill(currentThemeColor.opacity(0.2))
                     .frame(width: 140, height: 140)
                     .blur(radius: 20)
                     .scaleEffect(isGlowing ? 1.2 : 0.9)
@@ -32,7 +38,7 @@ struct MenuView: View {
                 // Outer Progress Ring (Timer)
                 if let remaining = manager.timerRemaining, let total = totalTimerDuration {
                     Circle()
-                        .stroke(.white.opacity(0.1), lineWidth: 4) // More visible track
+                        .stroke(.white.opacity(0.1), lineWidth: 4)
                         .frame(width: 110, height: 110)
                     
                     Circle()
@@ -90,12 +96,12 @@ struct MenuView: View {
             // MARK: - Digital Time Display
             if let remaining = manager.timerRemaining {
                 Text(formatDuration(remaining))
-                    .font(.system(size: 26, weight: .semibold, design: .monospaced)) // Bolder and larger
+                    .font(.system(size: 26, weight: .semibold, design: .monospaced))
                     .foregroundStyle(.white)
                     .padding(.top, 15)
             } else {
                 Text(manager.currentMode == .off ? "STANDBY" : "ACTIVE")
-                    .font(.system(size: 14, weight: .heavy, design: .monospaced)) // Heavier
+                    .font(.system(size: 14, weight: .heavy, design: .monospaced))
                     .foregroundStyle(currentThemeColor)
                     .padding(.top, 15)
                     .tracking(4)
@@ -125,48 +131,121 @@ struct MenuView: View {
             }
             .padding(.horizontal, 20)
             
+            // MARK: - Custom Timer Controls (Expandable)
+            if showCustomPicker {
+                HStack(spacing: 15) {
+                    CustomStepper(value: $customHours, range: 0...24, label: "hr")
+                    CustomStepper(value: $customMinutes, range: 0...59, label: "min")
+                    
+                    Button(action: {
+                        let totalSeconds = Double(customHours * 3600 + customMinutes * 60)
+                        if totalSeconds > 0 {
+                            manager.selectDuration(totalSeconds)
+                            withAnimation { showCustomPicker = false }
+                        } else {
+                            manager.selectDuration(nil)
+                        }
+                    }) {
+                        let isCurrent = manager.selectedDuration != nil && 
+                                      manager.selectedDuration == Double(customHours * 3600 + customMinutes * 60)
+                        
+                        Text("SET")
+                            .font(.system(size: 10, weight: .black))
+                            .padding(.vertical, 6)
+                            .padding(.horizontal, 12)
+                            .background(isCurrent ? Color.blue : Color.blue.opacity(0.6)) // Brighter background
+                            .clipShape(Capsule())
+                            .foregroundStyle(.white) // Pure white text
+                            .shadow(color: .blue.opacity(isCurrent ? 0.5 : 0), radius: 4)
+                            .overlay(
+                                Capsule()
+                                    .stroke(Color.white.opacity(isCurrent ? 0.8 : 0.3), lineWidth: 1)
+                            )
+                    }
+                    .buttonStyle(.plain)
+                }
+                .padding(.top, 15)
+                .transition(.move(edge: .top).combined(with: .opacity))
+            }
+            
             // MARK: - Timer Presets
-            HStack(spacing: 8) {
-                Text("TIMER:")
-                    .font(.system(size: 10, weight: .black)) // More prominent
-                    .foregroundStyle(.white.opacity(0.6))
-                
-                TimerActionChip(
-                    label: "1H", 
-                    isSelected: manager.selectedDuration == 3600
-                ) { manager.selectDuration(3600) }
-                
-                TimerActionChip(
-                    label: "2H", 
-                    isSelected: manager.selectedDuration == 7200
-                ) { manager.selectDuration(7200) }
-                
-                TimerActionChip(
-                    label: "OFF", 
-                    isDestructive: true,
-                    isSelected: manager.selectedDuration == nil
-                ) { manager.selectDuration(nil) }
-                
-                Spacer()
-                
-                Button(action: { manager.disableKeepAlive() }) {
-                    Image(systemName: "arrow.counterclockwise.circle.fill")
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundStyle(manager.currentMode == .off ? Color.white.opacity(0.2) : Color.blue)
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(spacing: 8) {
+                    Text("TIMER:")
+                        .font(.system(size: 10, weight: .black))
+                        .foregroundStyle(.white.opacity(0.6))
+                    
+                    TimerActionChip(
+                        label: "1H", 
+                        isSelected: manager.selectedDuration == 3600 && !showCustomPicker
+                    ) { 
+                        showCustomPicker = false
+                        manager.selectDuration(3600) 
+                    }
+                    
+                    TimerActionChip(
+                        label: "2H", 
+                        isSelected: manager.selectedDuration == 7200 && !showCustomPicker
+                    ) { 
+                        showCustomPicker = false
+                        manager.selectDuration(7200) 
+                    }
+                    
+                    TimerActionChip(
+                        label: "OFF", 
+                        isDestructive: true,
+                        isSelected: manager.selectedDuration == nil && !showCustomPicker
+                    ) { 
+                        showCustomPicker = false
+                        manager.selectDuration(nil) 
+                    }
                 }
-                .buttonStyle(.plain)
-                .help("Restore defaults")
                 
-                Button(action: { 
-                    manager.disableKeepAlive() // Ensure we cleanup before quitting
-                    NSApplication.shared.terminate(nil) 
-                }) {
-                    Image(systemName: "power.circle.fill")
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundStyle(Color.red.opacity(0.8))
+                HStack {
+                    TimerActionChip(
+                        label: "CUSTOM DURATION",
+                        isSelected: showCustomPicker
+                    ) {
+                        withAnimation(.spring()) {
+                            showCustomPicker.toggle()
+                        }
+                    }
+                    
+                    if manager.timerRemaining != nil, showCustomPicker == false, 
+                       manager.selectedDuration != 3600, manager.selectedDuration != 7200, manager.selectedDuration != nil {
+                        Text("Active")
+                            .font(.system(size: 8, weight: .black))
+                            .foregroundStyle(.blue)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(.blue.opacity(0.2))
+                            .clipShape(Capsule())
+                    }
+                    
+                    Spacer()
+                    
+                    // Power buttons moved here for better balance
+                    HStack(spacing: 12) {
+                        Button(action: { manager.disableKeepAlive() }) {
+                            Image(systemName: "arrow.counterclockwise.circle.fill")
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundStyle(manager.currentMode == .off ? Color.white.opacity(0.2) : Color.blue)
+                        }
+                        .buttonStyle(.plain)
+                        .help("Restore defaults")
+                        
+                        Button(action: { 
+                            manager.disableKeepAlive()
+                            NSApplication.shared.terminate(nil) 
+                        }) {
+                            Image(systemName: "power.circle.fill")
+                                .font(.system(size: 18, weight: .bold))
+                                .foregroundStyle(Color.red.opacity(0.8))
+                        }
+                        .buttonStyle(.plain)
+                        .help("Quit KeepAlive")
+                    }
                 }
-                .buttonStyle(.plain)
-                .help("Quit KeepAlive")
             }
             .padding(20)
         }
@@ -318,5 +397,41 @@ struct VisualEffectView: NSViewRepresentable {
     func updateNSView(_ nsView: NSVisualEffectView, context: Context) {
         nsView.material = material
         nsView.blendingMode = blendingMode
+    }
+}
+
+// MARK: - Custom Stepper Support
+
+struct CustomStepper: View {
+    @Binding var value: Int
+    let range: ClosedRange<Int>
+    let label: String
+    
+    var body: some View {
+        HStack(spacing: 8) {
+            Button(action: { if value > range.lowerBound { value -= 1 } }) {
+                Image(systemName: "minus.circle.fill")
+                    .font(.system(size: 14))
+                    .foregroundStyle(.white.opacity(0.5))
+            }
+            .buttonStyle(.plain)
+            
+            VStack(spacing: 0) {
+                Text("\(value)")
+                    .font(.system(size: 14, weight: .black, design: .monospaced))
+                    .foregroundStyle(.white)
+                Text(label)
+                    .font(.system(size: 8, weight: .bold))
+                    .foregroundStyle(.white.opacity(0.4))
+            }
+            .frame(width: 25)
+            
+            Button(action: { if value < range.upperBound { value += 1 } }) {
+                Image(systemName: "plus.circle.fill")
+                    .font(.system(size: 14))
+                    .foregroundStyle(.white.opacity(0.5))
+            }
+            .buttonStyle(.plain)
+        }
     }
 }

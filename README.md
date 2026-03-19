@@ -4,9 +4,9 @@ KeepAlive is a premium, high-performance macOS utility designed to prevent your 
 
 ## 📸 UI Preview
 
-| **Active Mode (FULL)** | **Standby Mode (OFF)** |
-|:---:|:---:|
-| ![KeepAlive Active](img/full.png) | ![KeepAlive Off](img/off.png) |
+| **Standby Mode (OFF)** | **Simple Mode (BLUE)** | **Full Mode (ORANGE)** |
+|:---:|:---:|:---:|
+| ![KeepAlive Off](img/off.png) | ![KeepAlive Simple](img/simple.png) | ![KeepAlive Full](img/full.png) |
 
 ## 🚀 Key Features
 
@@ -66,14 +66,10 @@ To start the app, run the compiled binary:
 2. Click the icon to open the KeepAlive control panel.
 3. Select **SIMPLE** for basic wakefulness or **FULL** for lid-sleep prevention.
 4. (Optional) Select a timer preset (1H, 2H) to auto-disable the mode.
-5. Click the **Restor Defaults** (power icon) to return to standard system behavior.
+5. Click the **Restore Defaults** (power icon) to return to standard system behavior.
 
 ## ⚠️ Safety Warning
 
 **Full Mode** prevents the Mac from sleeping even when the lid is closed. 
 - Please ensure your MacBook has proper ventilation when using this mode to avoid heat buildup.
 - Do not keep the MacBook in a tight bag or sleeve while Full Mode is active.
-
-## 📄 License
-
-This project is provided "as is" for developer use and prototyping.
