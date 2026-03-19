@@ -4,7 +4,7 @@ KeepAlive is a premium, high-performance macOS utility designed to prevent your 
 
 ## 📸 UI Preview
 
-| **Standby Mode (OFF)** | **Simple Mode (BLUE)** | **Full Mode (ORANGE)** |
+| **Standby Mode (OFF)** | **Simple Mode** | **Full Mode** |
 |:---:|:---:|:---:|
 | ![KeepAlive Off](img/off.png) | ![KeepAlive Simple](img/simple.png) | ![KeepAlive Full](img/full.png) |
 
